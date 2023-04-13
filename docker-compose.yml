@@ -2,18 +2,14 @@ version: "3.7"
 
 services:
   mongo:
-    image: mongo
-    restart: always
+    image: mongo:latest
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongoadmin
       MONGO_INITDB_ROOT_PASSWORD: a02310440a
-
-  mongo-express:
-    image: mongo-express
-    restart: always
     ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: mongoadmin
-      ME_CONFIG_MONGODB_ADMINPASSWORD: a02310440a
-      ME_CONFIG_MONGODB_URL: mongodb://mongoadmin:a02310440a@mongo:27017/
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+volumes:
+  mongodb_data_container:
