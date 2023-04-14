@@ -30,4 +30,10 @@ const userSchema = new mongoose.Schema<iCreateUser>(
 
 addPasswordHashingToSchema(userSchema);
 
+userSchema.methods.UserWithoutPassword = function () {
+  const user = this.toObject();
+  delete user.password;
+  return user;
+};
+
 export const User = mongoose.model<iCreateUser>("Users", userSchema);

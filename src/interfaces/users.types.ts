@@ -6,6 +6,7 @@ export interface iCreateUser extends Document {
   email: string | Mixed;
   firstName: string;
   lastName: string;
+  UserWithoutPassword: () => Omit<this, "password">;
 }
 
 export interface iCreateUserReturn {
