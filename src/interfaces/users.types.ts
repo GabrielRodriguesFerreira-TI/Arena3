@@ -7,3 +7,13 @@ export interface iCreateUser {
   firstName: string;
   lastName: string;
 }
+
+export interface iCreateUserReturn {
+  id: string;
+  username: string;
+  email: string | Mixed;
+  firstName: string;
+  lastName: string;
+  createdAt: string;
+  updatedAt: string;
+}
