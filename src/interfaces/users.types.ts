@@ -6,14 +6,16 @@ export interface iCreateUser {
   email: string | Mixed;
   firstName: string;
   lastName: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface iCreateUserReturn {
-  id: string;
+  _id: Object;
   username: string;
   email: string | Mixed;
   firstName: string;
   lastName: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
