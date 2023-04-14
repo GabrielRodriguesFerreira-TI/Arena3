@@ -1,5 +1,6 @@
 import "dotenv/config";
 import mongoose from "mongoose";
+import app from "./app";
 const getDataBaseConfg = require("./data-source");
 
 async function main() {
@@ -15,6 +16,9 @@ async function main() {
   db.on("error", console.error.bind(console, "connection error:"));
   db.once("open", function () {
     console.log("Connected to MongoDB!");
+    app.listen(port, () => {
+      console.log("Server is running on port 3000!");
+    });
   });
 }
 
