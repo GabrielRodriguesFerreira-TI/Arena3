@@ -9,7 +9,7 @@ async function main() {
   const uri = databaseConfig[env].uri;
   const port = process.env.PORT!;
 
-  mongoose.connect(uri);
+  mongoose.connect(uri, { autoIndex: false });
 
   const db = mongoose.connection;
 

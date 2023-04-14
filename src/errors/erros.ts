@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import mongoose from "mongoose";
 
 class AppError extends Error {
   message: string;
@@ -21,6 +22,10 @@ const handleErros = (
     return res.status(error.statusCode).json({
       message: error.message,
     });
+  }
+
+  if (error instanceof mongoose.Error.ValidationError) {
+    return res.status(400).json(error.errors);
   }
 
   return res.status(500).json({
