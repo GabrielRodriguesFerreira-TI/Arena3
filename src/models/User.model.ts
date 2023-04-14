@@ -1,6 +1,7 @@
 import validator from "validator";
 import mongoose from "mongoose";
 import { iCreateUser } from "../interfaces/users.types";
+import { addPasswordHashingToSchema } from "../hooks/hashingPassword";
 
 const userSchema = new mongoose.Schema<iCreateUser>(
   {
@@ -26,5 +27,7 @@ const userSchema = new mongoose.Schema<iCreateUser>(
   },
   { timestamps: true }
 );
+
+addPasswordHashingToSchema(userSchema);
 
 export const User = mongoose.model<iCreateUser>("Users", userSchema);
