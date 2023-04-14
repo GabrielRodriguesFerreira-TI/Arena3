@@ -1,13 +1,11 @@
-import { Mixed } from "mongoose";
+import { Document, Mixed } from "mongoose";
 
-export interface iCreateUser {
+export interface iCreateUser extends Document {
   username: string;
   password: string;
   email: string | Mixed;
   firstName: string;
   lastName: string;
-  createdAt?: string;
-  updatedAt?: string;
 }
 
 export interface iCreateUserReturn {
