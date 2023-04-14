@@ -28,8 +28,12 @@ const handleErros = (
     return res.status(400).json(error.errors);
   }
 
+  if (error instanceof TypeError) {
+    return res.status(400).json({ message: error.message });
+  }
+
   return res.status(500).json({
-    message: "Internal server error",
+    message: "internal server error",
   });
 };
 
