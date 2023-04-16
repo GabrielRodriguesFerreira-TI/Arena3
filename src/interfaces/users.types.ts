@@ -10,7 +10,7 @@ export interface iCreateUser extends Document {
 }
 
 export interface iCreateUserReturn {
-  _id: Object;
+  id: Object;
   username: string;
   email: string | Mixed;
   firstName: string;

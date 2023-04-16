@@ -25,13 +25,16 @@ const userSchema = new mongoose.Schema<iCreateUser>(
     firstName: { type: String, required: true, maxlength: 50, minlength: 4 },
     lastName: { type: String, required: true, maxlength: 50, minlength: 4 },
   },
-  { timestamps: true }
+  { timestamps: true, autoCreate: false }
 );
 
 addPasswordHashingToSchema(userSchema);
 
 userSchema.methods.UserWithoutPassword = function () {
   const user = this.toObject();
+  user.id = user._id;
+  delete user._id;
+  delete user.__v;
   delete user.password;
   return user;
 };
