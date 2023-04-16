@@ -29,11 +29,7 @@ const handleErros = (
     return res.status(400).json(error.errors);
   }
 
-  if (error instanceof MongoServerError) {
-    return res.status(400).json({ message: error.message });
-  }
-
-  if (error instanceof TypeError) {
+  if (error instanceof MongoServerError || error instanceof TypeError) {
     return res.status(400).json({ message: error.message });
   }
 
