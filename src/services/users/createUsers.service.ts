@@ -5,8 +5,8 @@ export const createUserServices = async (
   payload: iCreateUser
 ): Promise<iCreateUserReturn> => {
   const user = await User.create(payload);
-  const userWithoutPassword = user.UserWithoutPassword();
-  const { __v, ...rest } = userWithoutPassword;
+  const userWithoutPassword =
+    user.UserWithoutPassword() as unknown as iCreateUserReturn;
 
-  return rest;
+  return userWithoutPassword;
 };
