@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { MongoServerError } from "mongodb";
 import mongoose from "mongoose";
 
 class AppError extends Error {
@@ -28,12 +29,16 @@ const handleErros = (
     return res.status(400).json(error.errors);
   }
 
+  if (error instanceof MongoServerError) {
+    return res.status(400).json({ message: error.message });
+  }
+
   if (error instanceof TypeError) {
     return res.status(400).json({ message: error.message });
   }
 
   return res.status(500).json({
-    message: "internal server error",
+    message: error.name,
   });
 };
 
