@@ -6,6 +6,7 @@ export interface iCreateUser extends Document {
   email: string | Mixed;
   firstName: string;
   lastName: string;
+  isAdmin: boolean;
   UserWithoutPassword: () => Omit<this, "password">;
 }
 
@@ -15,6 +16,7 @@ export interface iCreateUserReturn {
   email: string | Mixed;
   firstName: string;
   lastName: string;
+  isAdmin: boolean;
   createdAt?: string;
   updatedAt?: string;
 }

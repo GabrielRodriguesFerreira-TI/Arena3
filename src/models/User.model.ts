@@ -24,6 +24,7 @@ const userSchema = new mongoose.Schema<iCreateUser>(
     },
     firstName: { type: String, required: true, maxlength: 50, minlength: 4 },
     lastName: { type: String, required: true, maxlength: 50, minlength: 4 },
+    isAdmin: { type: Boolean, required: false, default: false },
   },
   { timestamps: true, autoCreate: false }
 );
