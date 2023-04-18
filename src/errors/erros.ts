@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { MongoServerError } from "mongodb";
 import mongoose from "mongoose";
+import { MulterError } from "multer";
 
 class AppError extends Error {
   message: string;
@@ -31,6 +32,10 @@ const handleErros = (
 
   if (error instanceof MongoServerError || error instanceof TypeError) {
     return res.status(400).json({ message: error.message });
+  }
+
+  if (error instanceof MulterError && error.code === "LIMIT_FILE_SIZE") {
+    return res.status(413).json({ message: "File too large" });
   }
 
   return res.status(500).json({
