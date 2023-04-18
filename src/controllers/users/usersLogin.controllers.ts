@@ -20,7 +20,7 @@ export const userRefreshTokenController = async (
 ): Promise<Response> => {
   const refreshToken: string = req.cookies.refreshToken;
 
-  const response = await userRefreshTokenService(refreshToken);
+  const response = await userRefreshTokenService(refreshToken, res);
 
   return res.status(200).json(response);
 };
