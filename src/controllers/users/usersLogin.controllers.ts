@@ -8,7 +8,7 @@ export const userLoginController = async (
 ): Promise<Response> => {
   const userInfo: iLoginUser = req.body;
 
-  const token: string = await createLoginService(userInfo);
+  const token: string = await createLoginService(userInfo, res);
 
   return res.json(token);
 };
