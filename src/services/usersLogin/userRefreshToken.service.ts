@@ -1,11 +1,12 @@
 import "dotenv/config";
 import { JwtPayload, sign, verify } from "jsonwebtoken";
 import { AppError } from "../../errors/erros";
-import { Response } from "express";
+import { Request, Response } from "express";
 
 export const userRefreshTokenService = async (
   refreshToken: string,
-  res: Response
+  res: Response,
+  req: Request
 ): Promise<{ message: string }> => {
   if (!refreshToken) {
     throw new AppError("Refresh token is missing!");
@@ -27,6 +28,10 @@ export const userRefreshTokenService = async (
           subject: String((decoded as JwtPayload).id),
         }
       );
+
+      req.jwtEmailUser = (decoded as JwtPayload).email;
+      req.jwtIdUser = (decoded as JwtPayload).sub!;
+      req.jwtAdminUser = (decoded as JwtPayload).admin;
 
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
