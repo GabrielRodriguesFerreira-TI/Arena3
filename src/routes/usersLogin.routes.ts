@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   userLoginController,
+  userLogoutController,
   userRefreshTokenController,
 } from "../controllers/users/usersLogin.controllers";
 
@@ -10,4 +11,4 @@ usersLoginRoutes.post("/login", userLoginController);
 
 usersLoginRoutes.post("/login/token", userRefreshTokenController);
 
-usersLoginRoutes.post("/logout");
+usersLoginRoutes.post("/logout", userLogoutController);
