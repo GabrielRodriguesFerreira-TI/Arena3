@@ -22,3 +22,8 @@ export interface iCreateUserReturn {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface iUploadUserImageProfile {
+  userId: string;
+  avatarUrl: string;
+}

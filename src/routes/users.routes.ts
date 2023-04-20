@@ -1,11 +1,19 @@
 import { Router } from "express";
-import { createUserController } from "../controllers/users/users.controllers";
+import {
+  createUserController,
+  uploadUserProfileImageController,
+} from "../controllers/users/users.controllers";
+import { upload } from "../middlewares/upload.multer";
 
 export const usersRoutes: Router = Router();
 
 usersRoutes.post("/users", createUserController);
 
-usersRoutes.get("/users");
+usersRoutes.post(
+  "/users/upload-image/:user_id",
+  upload.single("avatar"),
+  uploadUserProfileImageController
+);
 
 usersRoutes.get("/users/:user_id");
 
