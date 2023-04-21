@@ -34,5 +34,5 @@ export const deleteUserProfileImageController = async (
 
   await deleteUserProfileImageService(file);
 
-  return res.status(204);
+  return res.sendStatus(204);
 };
