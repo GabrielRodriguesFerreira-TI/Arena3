@@ -1,11 +1,8 @@
 import { Request, Response } from "express";
-import {
-  iCreateUser,
-  iCreateUserReturn,
-  iUploadUserImageProfile,
-} from "../../interfaces/users.types";
+import { iCreateUser, iCreateUserReturn } from "../../interfaces/users.types";
 import { createUserServices } from "../../services/users/createUsers.service";
 import { uploadUserProfileImageService } from "../../services/users/uploadUserProfileImage.service";
+import { deleteUserProfileImageService } from "../../services/users/deleteUserProfileImage.service";
 
 export const createUserController = async (
   req: Request,
@@ -27,4 +24,15 @@ export const uploadUserProfileImageController = async (
   const response = await uploadUserProfileImageService(file);
 
   return res.status(200).json(response);
+};
+
+export const deleteUserProfileImageController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const file = req.params.filename;
+
+  await deleteUserProfileImageService(file);
+
+  return res.status(204);
 };
