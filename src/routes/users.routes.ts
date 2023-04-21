@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createUserController,
+  deleteUserProfileImageController,
   uploadUserProfileImageController,
 } from "../controllers/users/users.controllers";
 import { tokenValidationMiddleware } from "../middlewares/validToken.middleware";
@@ -12,7 +13,7 @@ const upload = multer(multerConfig);
 
 usersRoutes.post("/users", createUserController);
 
-usersRoutes.post(
+usersRoutes.patch(
   "/users/upload/:user_id",
   tokenValidationMiddleware,
   upload.single("image"),
@@ -21,7 +22,8 @@ usersRoutes.post(
 
 usersRoutes.delete(
   "/users/upload/:filename/:user_id",
-  tokenValidationMiddleware
+  tokenValidationMiddleware,
+  deleteUserProfileImageController
 );
 
 usersRoutes.get("/users/:user_id");
