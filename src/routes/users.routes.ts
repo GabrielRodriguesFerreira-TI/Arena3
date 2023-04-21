@@ -13,10 +13,15 @@ const upload = multer(multerConfig);
 usersRoutes.post("/users", createUserController);
 
 usersRoutes.post(
-  "/upload/:user_id",
+  "/users/upload/:user_id",
   tokenValidationMiddleware,
   upload.single("image"),
   uploadUserProfileImageController
+);
+
+usersRoutes.delete(
+  "/users/upload/:filename/:user_id",
+  tokenValidationMiddleware
 );
 
 usersRoutes.get("/users/:user_id");
