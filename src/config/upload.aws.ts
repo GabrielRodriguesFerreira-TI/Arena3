@@ -1,16 +1,20 @@
 import "dotenv/config";
-import AWS from "aws-sdk";
-import { S3Client } from "@aws-sdk/client-s3";
+import multer from "multer";
+import path from "path";
+import crypto from "crypto";
 
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-});
+const tmpFolder = path.resolve(__dirname, "..", "..", "tmp");
 
-export const s3 = new S3Client({
-  region: "sa-east-1",
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-  },
-});
+export default {
+  directory: tmpFolder,
+  storage: multer.diskStorage({
+    destination: tmpFolder,
+    filename(request, file, callback) {
+      const fileHash = crypto.randomBytes(10).toString("hex");
+
+      const fileName = `${fileHash}-${file.originalname}`;
+
+      return callback(null, fileName);
+    },
+  }),
+};
