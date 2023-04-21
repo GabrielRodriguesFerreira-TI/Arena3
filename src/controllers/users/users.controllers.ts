@@ -5,7 +5,7 @@ import {
   iUploadUserImageProfile,
 } from "../../interfaces/users.types";
 import { createUserServices } from "../../services/users/createUsers.service";
-import { uploadUserProfileImageService } from "../../services/usersLogin/uploadUserProfileImage.service";
+import { uploadUserProfileImageService } from "../../services/users/uploadUserProfileImage.service";
 
 export const createUserController = async (
   req: Request,
@@ -22,12 +22,9 @@ export const uploadUserProfileImageController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const userInfo: iUploadUserImageProfile = {
-    userId: req.params.user_id,
-    avatarUrl: req.file!.path,
-  };
-  console.log("teste");
-  const response = await uploadUserProfileImageService(userInfo);
+  const file = req.file!;
+
+  const response = await uploadUserProfileImageService(file);
 
   return res.status(200).json(response);
 };
