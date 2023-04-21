@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import { MongoServerError } from "mongodb";
 import mongoose from "mongoose";
 import { MulterError } from "multer";
+import { ValidationError, ValidationErrorItem } from "@hapi/joi";
+import { FormattedErrorMessage } from "../interfaces/errors.types";
 
 class AppError extends Error {
   message: string;
@@ -11,6 +13,31 @@ class AppError extends Error {
     super();
     this.message = message;
     this.statusCode = statusCode;
+  }
+}
+
+export class CustomValidationError extends ValidationError {
+  statusCode: number;
+
+  constructor(
+    message: string,
+    statusCode: number,
+    details: ValidationErrorItem[]
+  ) {
+    super(message, details, {});
+    this.statusCode = statusCode;
+  }
+
+  getFormattedErrorMessage(): FormattedErrorMessage {
+    const details = this.details.reduce(
+      (acc: Record<string, string>, detail) => {
+        const { path, message } = detail;
+        acc[path.join(".")] = message;
+        return acc;
+      },
+      {}
+    );
+    return { message: details };
   }
 }
 
@@ -36,6 +63,11 @@ const handleErros = (
 
   if (error instanceof MulterError) {
     return res.status(413).json({ message: error.message });
+  }
+
+  if (error instanceof CustomValidationError) {
+    const formattedErrorMessage = error.getFormattedErrorMessage();
+    return res.status(error.statusCode).json(formattedErrorMessage);
   }
 
   return res.status(500).json({

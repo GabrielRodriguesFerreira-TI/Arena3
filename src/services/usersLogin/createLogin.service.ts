@@ -1,15 +1,22 @@
 import "dotenv/config";
 import { compare } from "bcryptjs";
-import { AppError } from "../../errors/erros";
+import { AppError, CustomValidationError } from "../../errors/erros";
 import { iLoginUser } from "../../interfaces/usersLogin.types";
 import { User } from "../../models/User.model";
 import { sign } from "jsonwebtoken";
 import { Response } from "express";
+import { userLoginSchema } from "../../schema/UserLogin.schema";
 
 export const createLoginService = async (
   payload: iLoginUser,
   res: Response
 ): Promise<any> => {
+  const { error } = userLoginSchema.validate(payload);
+
+  if (error) {
+    throw new CustomValidationError("Validation error", 422, error.details);
+  }
+
   const user = await User.findOne({ email: payload.email });
 
   if (!user) {

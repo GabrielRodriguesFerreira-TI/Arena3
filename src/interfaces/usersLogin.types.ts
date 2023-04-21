@@ -1,6 +1,4 @@
-import { Document, Mixed } from "mongoose";
-
-export interface iLoginUser extends Document {
-  email: string | Mixed;
+export interface iLoginUser {
+  email: string;
   password: string;
 }
