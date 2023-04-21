@@ -3,17 +3,19 @@ import {
   createUserController,
   uploadUserProfileImageController,
 } from "../controllers/users/users.controllers";
-import { upload } from "../middlewares/upload.multer";
 import { tokenValidationMiddleware } from "../middlewares/validToken.middleware";
+import multer from "multer";
+import multerConfig from "../config/upload.aws";
 
 export const usersRoutes: Router = Router();
+const upload = multer(multerConfig);
 
 usersRoutes.post("/users", createUserController);
 
-usersRoutes.patch(
-  "/users/upload-image/:user_id",
-  upload.single("avatar"),
+usersRoutes.post(
+  "/upload/:user_id",
   tokenValidationMiddleware,
+  upload.single("image"),
   uploadUserProfileImageController
 );
 
