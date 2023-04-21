@@ -4,14 +4,16 @@ import {
   uploadUserProfileImageController,
 } from "../controllers/users/users.controllers";
 import { upload } from "../middlewares/upload.multer";
+import { tokenValidationMiddleware } from "../middlewares/validToken.middleware";
 
 export const usersRoutes: Router = Router();
 
 usersRoutes.post("/users", createUserController);
 
-usersRoutes.post(
+usersRoutes.patch(
   "/users/upload-image/:user_id",
   upload.single("avatar"),
+  tokenValidationMiddleware,
   uploadUserProfileImageController
 );
 

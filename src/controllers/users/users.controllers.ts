@@ -5,7 +5,6 @@ import {
   iUploadUserImageProfile,
 } from "../../interfaces/users.types";
 import { createUserServices } from "../../services/users/createUsers.service";
-import { MulterS3File } from "../../@types/express";
 import { uploadUserProfileImageService } from "../../services/usersLogin/uploadUserProfileImage.service";
 
 export const createUserController = async (
@@ -25,8 +24,9 @@ export const uploadUserProfileImageController = async (
 ): Promise<Response> => {
   const userInfo: iUploadUserImageProfile = {
     userId: req.params.user_id,
-    avatarUrl: (req.file as MulterS3File).location,
+    avatarUrl: req.file!.path,
   };
+  console.log("teste");
   const response = await uploadUserProfileImageService(userInfo);
 
   return res.status(200).json(response);
