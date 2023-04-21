@@ -1,3 +1,4 @@
+import "dotenv/config";
 import aws, { S3 } from "aws-sdk";
 import path from "path";
 import multerConfig from "../config/upload.aws";
@@ -5,12 +6,16 @@ import mime from "mime";
 import { AppError } from "../errors/erros";
 import fs from "fs";
 
+// Note that the AWS config is not being done directly in the code,
+// this is because the S3 system itself captures the values inside
+// the .env file
+
 class S3Storage {
   private client: S3;
 
   constructor() {
     this.client = new aws.S3({
-      region: "us-east-1",
+      region: String(process.env.AWS_REGION),
     });
   }
 
@@ -27,7 +32,7 @@ class S3Storage {
 
     this.client
       .putObject({
-        Bucket: "fmd-storage",
+        Bucket: String(process.env.AWS_BUCKET_NAME),
         Key: filename,
         Body: fileContent,
         ContentType: contentType,
