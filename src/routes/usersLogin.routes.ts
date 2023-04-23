@@ -1,19 +1,21 @@
 import { Router } from "express";
-import {
-  userLoginController,
-  userLogoutController,
-  userRefreshTokenController,
-} from "../controllers/users/usersLogin.controllers";
-import { tokenValidationMiddleware } from "../middlewares/validToken.middleware";
+import * as UserLogin from "../controllers/users/index";
+import * as Middleware from "../middlewares/index";
 
 export const usersLoginRoutes: Router = Router();
 
-usersLoginRoutes.post("/login", userLoginController);
+usersLoginRoutes.post(
+  "/login",
+  UserLogin.default.usersLogin.userLoginController
+);
 
-usersLoginRoutes.post("/login/token", userRefreshTokenController);
+usersLoginRoutes.post(
+  "/login/token",
+  UserLogin.default.usersLogin.userRefreshTokenController
+);
 
 usersLoginRoutes.post(
   "/logout",
-  tokenValidationMiddleware,
-  userLogoutController
+  Middleware.tokenValidationMiddleware,
+  UserLogin.default.usersLogin.userLogoutController
 );

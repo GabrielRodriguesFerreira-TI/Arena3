@@ -1,32 +1,27 @@
 import { Router } from "express";
-import {
-  createUserController,
-  deleteUserProfileImageController,
-  uploadUserProfileImageController,
-} from "../controllers/users/users.controllers";
-import { tokenValidationMiddleware } from "../middlewares/validToken.middleware";
 import multer from "multer";
 import multerConfig from "../config/upload.aws";
-import { verifyPermissionMiddlewares } from "../middlewares/verifyPermission.middleware";
+import * as Middlewares from "../middlewares/index";
+import * as Users from "../controllers/users/index";
 
 export const usersRoutes: Router = Router();
 const upload = multer(multerConfig);
 
-usersRoutes.post("/users", createUserController);
+usersRoutes.post("/users", Users.default.users.createUserController);
 
 usersRoutes.patch(
   "/users/upload/:user_id",
-  tokenValidationMiddleware,
-  verifyPermissionMiddlewares,
+  Middlewares.tokenValidationMiddleware,
+  Middlewares.verifyPermissionMiddlewares,
   upload.single("image"),
-  uploadUserProfileImageController
+  Users.default.users.uploadUserProfileImageController
 );
 
 usersRoutes.delete(
   "/users/upload/:filename/:user_id",
-  tokenValidationMiddleware,
-  verifyPermissionMiddlewares,
-  deleteUserProfileImageController
+  Middlewares.tokenValidationMiddleware,
+  Middlewares.verifyPermissionMiddlewares,
+  Users.default.users.deleteUserProfileImageController
 );
 
 usersRoutes.get("/users/:user_id");
