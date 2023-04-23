@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { iCreateUser, iCreateUserReturn } from "../../interfaces/users.types";
 import * as Users from "../../services/users/index";
+import { retrieveUsersService } from "../../services/users/retrieveUsers.service";
 
 export const createUserController = async (
   req: Request,
@@ -31,10 +32,19 @@ export const deleteUserProfileImageController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const file = req.params.filename;
+  const file: string = req.params.filename;
   const userId: string = req.params.user_id;
 
   await Users.deleteUserProfileImageService(file, userId);
 
   return res.sendStatus(204);
+};
+
+export const retrieveUsersController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const users: iCreateUserReturn[] = await retrieveUsersService();
+
+  return res.status(200).json(users);
 };
