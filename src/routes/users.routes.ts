@@ -7,6 +7,7 @@ import {
 import { tokenValidationMiddleware } from "../middlewares/validToken.middleware";
 import multer from "multer";
 import multerConfig from "../config/upload.aws";
+import { verifyPermissionMiddlewares } from "../middlewares/verifyPermission.middleware";
 
 export const usersRoutes: Router = Router();
 const upload = multer(multerConfig);
@@ -16,6 +17,7 @@ usersRoutes.post("/users", createUserController);
 usersRoutes.patch(
   "/users/upload/:user_id",
   tokenValidationMiddleware,
+  verifyPermissionMiddlewares,
   upload.single("image"),
   uploadUserProfileImageController
 );
@@ -23,6 +25,7 @@ usersRoutes.patch(
 usersRoutes.delete(
   "/users/upload/:filename/:user_id",
   tokenValidationMiddleware,
+  verifyPermissionMiddlewares,
   deleteUserProfileImageController
 );
 
