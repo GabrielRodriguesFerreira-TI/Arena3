@@ -2,6 +2,8 @@ import validator from "validator";
 import mongoose from "mongoose";
 import { iCreateUser } from "../interfaces/users.types";
 import { addPasswordHashingToSchema } from "../hooks/hashingPassword";
+import mongoosePaginate from "mongoose-paginate-v2";
+import { ICustomModel } from "../interfaces/paginate.types";
 
 const userSchema = new mongoose.Schema<iCreateUser>(
   {
@@ -30,15 +32,18 @@ const userSchema = new mongoose.Schema<iCreateUser>(
   { timestamps: true, autoCreate: false }
 );
 
+userSchema.plugin(mongoosePaginate);
+
 addPasswordHashingToSchema(userSchema);
 
 userSchema.methods.UserWithoutPassword = function () {
   const user = this.toObject();
-  user.id = user._id;
-  delete user._id;
   delete user.__v;
   delete user.password;
   return user;
 };
 
-export const User = mongoose.model<iCreateUser>("Users", userSchema);
+export const User = mongoose.model<iCreateUser, ICustomModel<iCreateUser>>(
+  "Users",
+  userSchema
+);

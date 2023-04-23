@@ -26,7 +26,11 @@ usersRoutes.delete(
   Users.default.users.deleteUserProfileImageController
 );
 
-usersRoutes.get("/users", Middlewares.tokenValidationMiddleware);
+usersRoutes.get(
+  "/users",
+  Middlewares.tokenValidationMiddleware,
+  Users.default.users.retrieveUsersController
+);
 
 usersRoutes.patch("/users/:user_id");
 
