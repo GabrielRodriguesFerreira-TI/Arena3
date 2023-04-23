@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import { iCreateUser, iCreateUserReturn } from "../../interfaces/users.types";
-import { createUserServices } from "../../services/users/createUsers.service";
-import { uploadUserProfileImageService } from "../../services/users/uploadUserProfileImage.service";
-import { deleteUserProfileImageService } from "../../services/users/deleteUserProfileImage.service";
+import * as Users from "../../services/users/index";
 
 export const createUserController = async (
   req: Request,
@@ -10,7 +8,9 @@ export const createUserController = async (
 ): Promise<Response> => {
   const userInfo: iCreateUser = req.body;
 
-  const createdUser: iCreateUserReturn = await createUserServices(userInfo);
+  const createdUser: iCreateUserReturn = await Users.createUserServices(
+    userInfo
+  );
 
   return res.status(201).json(createdUser);
 };
@@ -21,7 +21,7 @@ export const uploadUserProfileImageController = async (
 ): Promise<Response> => {
   const file = req.file!;
 
-  const response = await uploadUserProfileImageService(file);
+  const response = await Users.uploadUserProfileImageService(file);
 
   return res.status(200).json(response);
 };
@@ -32,7 +32,7 @@ export const deleteUserProfileImageController = async (
 ): Promise<Response> => {
   const file = req.params.filename;
 
-  await deleteUserProfileImageService(file);
+  await Users.deleteUserProfileImageService(file);
 
   return res.sendStatus(204);
 };
