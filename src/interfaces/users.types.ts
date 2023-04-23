@@ -1,4 +1,5 @@
 import { Document, Mixed } from "mongoose";
+import QueryString from "qs";
 
 export interface iCreateUser extends Document {
   username: string;
@@ -26,4 +27,30 @@ export interface iCreateUserReturn {
 export interface iUploadUserImageProfile {
   userId: string;
   avatarUrl: string;
+}
+
+export interface iRetrieveUserPagination {
+  docs: iCreateUser[];
+  totalDocs: number;
+  limit: number;
+  page?: number;
+  totalPages?: number;
+  nextPage?: number | null;
+  prevPage?: number | null;
+  pagingCounter?: number;
+  hasPrevPage?: boolean;
+  hasNextPage?: boolean;
+  meta?: any;
+}
+
+type ParamType =
+  | string
+  | QueryString.ParsedQs
+  | string[]
+  | QueryString.ParsedQs[]
+  | undefined;
+
+export interface iQueryValues {
+  page: ParamType;
+  limit: ParamType;
 }

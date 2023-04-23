@@ -1,5 +1,10 @@
 import { Request, Response } from "express";
-import { iCreateUser, iCreateUserReturn } from "../../interfaces/users.types";
+import {
+  iCreateUser,
+  iCreateUserReturn,
+  iQueryValues,
+  iRetrieveUserPagination,
+} from "../../interfaces/users.types";
 import * as Users from "../../services/users/index";
 import { retrieveUsersService } from "../../services/users/retrieveUsers.service";
 
@@ -44,7 +49,14 @@ export const retrieveUsersController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const users: iCreateUserReturn[] = await retrieveUsersService();
+  const queryValues: iQueryValues = {
+    page: req.query.page,
+    limit: req.query.limit,
+  };
+
+  const users: iRetrieveUserPagination = await retrieveUsersService(
+    queryValues
+  );
 
   return res.status(200).json(users);
 };
