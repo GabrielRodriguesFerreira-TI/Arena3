@@ -12,6 +12,7 @@ usersRoutes.post("/users", Users.default.users.createUserController);
 usersRoutes.patch(
   "/users/upload/:user_id",
   Middlewares.tokenValidationMiddleware,
+  Middlewares.verifyIdExistsMiddlewares,
   Middlewares.verifyPermissionMiddlewares,
   upload.single("image"),
   Users.default.users.uploadUserProfileImageController
@@ -20,6 +21,7 @@ usersRoutes.patch(
 usersRoutes.delete(
   "/users/upload/:filename/:user_id",
   Middlewares.tokenValidationMiddleware,
+  Middlewares.verifyIdExistsMiddlewares,
   Middlewares.verifyPermissionMiddlewares,
   Users.default.users.deleteUserProfileImageController
 );

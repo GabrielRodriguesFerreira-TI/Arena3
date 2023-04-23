@@ -20,8 +20,9 @@ export const uploadUserProfileImageController = async (
   res: Response
 ): Promise<Response> => {
   const file = req.file!;
+  const userId: string = req.params.user_id;
 
-  const response = await Users.uploadUserProfileImageService(file);
+  const response = await Users.uploadUserProfileImageService(file, userId);
 
   return res.status(200).json(response);
 };
@@ -31,8 +32,9 @@ export const deleteUserProfileImageController = async (
   res: Response
 ): Promise<Response> => {
   const file = req.params.filename;
+  const userId: string = req.params.user_id;
 
-  await Users.deleteUserProfileImageService(file);
+  await Users.deleteUserProfileImageService(file, userId);
 
   return res.sendStatus(204);
 };
