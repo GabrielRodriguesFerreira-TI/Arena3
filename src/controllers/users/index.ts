@@ -5,6 +5,7 @@ import {
   retrieveUsersController,
   deletedUsersController,
   deactivatedUsersController,
+  updateUsersController,
 } from "./users.controllers";
 import {
   userLoginController,
@@ -20,6 +21,7 @@ export default {
     retrieveUsersController,
     deletedUsersController,
     deactivatedUsersController,
+    updateUsersController,
   },
   usersLogin: {
     userLoginController,
