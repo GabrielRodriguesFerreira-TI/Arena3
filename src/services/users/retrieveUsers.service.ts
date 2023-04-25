@@ -7,11 +7,20 @@ import { User } from "../../models/User.model";
 export const retrieveUsersService = async (
   params: iQueryValues
 ): Promise<iRetrieveUserPagination> => {
-  const { limit, page } = params;
+  let limitNumber = parseInt((params.limit as unknown as string) ?? "5");
+  let pageNumber = parseInt((params.page as unknown as string) ?? "1");
+
+  if (isNaN(limitNumber)) {
+    limitNumber = 5;
+  }
+
+  if (isNaN(pageNumber)) {
+    pageNumber = 1;
+  }
 
   const options = {
-    page: Number(page),
-    limit: Number(limit),
+    page: pageNumber,
+    limit: limitNumber,
     select: "-password -__v",
   };
 

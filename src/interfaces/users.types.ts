@@ -43,7 +43,7 @@ export interface iRetrieveUserPagination {
   meta?: any;
 }
 
-type ParamType =
+export type ParamType =
   | string
   | QueryString.ParsedQs
   | string[]
