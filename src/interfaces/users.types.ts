@@ -14,7 +14,7 @@ export interface iCreateUser extends Document {
 }
 
 export interface iCreateUserReturn {
-  id: Object;
+  _id: Object;
   username: string;
   email: string | Mixed;
   firstName: string;
@@ -57,8 +57,8 @@ export interface iQueryValues {
 }
 
 export interface iUpdatedUser {
-  username: string;
-  password: string;
-  firstName: string;
-  lastName: string;
+  username?: string;
+  password?: string;
+  firstName?: string;
+  lastName?: string;
 }

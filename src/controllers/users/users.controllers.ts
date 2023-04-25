@@ -67,7 +67,10 @@ export const updateUsersController = async (
 ): Promise<Response> => {
   const userInfo: iUpdatedUser = req.body;
 
-  const updatedUser = await Users.updateUsersService(userInfo, req);
+  const updatedUser: iCreateUserReturn = await Users.updateUsersService(
+    userInfo,
+    req
+  );
 
   return res.status(200).json(updatedUser);
 };
