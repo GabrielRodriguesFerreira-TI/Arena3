@@ -68,3 +68,12 @@ export const deletedUsersController = async (
 
   return res.status(204).send();
 };
+
+export const deactivatedUsersController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  await Users.deactivatedUsersService(req);
+
+  return res.status(204).send();
+};
