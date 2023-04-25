@@ -6,6 +6,7 @@ import {
   iRetrieveUserPagination,
 } from "../../interfaces/users.types";
 import * as Users from "../../services/users/index";
+import { deletedUserService } from "../../services/users/deletedUsers.service";
 
 export const createUserController = async (
   req: Request,
@@ -58,4 +59,13 @@ export const retrieveUsersController = async (
   );
 
   return res.status(200).json(users);
+};
+
+export const deletedUsersController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  await deletedUserService(req);
+
+  return res.status(204).send();
 };

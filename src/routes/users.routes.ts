@@ -34,4 +34,10 @@ usersRoutes.get(
 
 usersRoutes.patch("/users/:user_id");
 
-usersRoutes.delete("/users/:user_id");
+usersRoutes.delete(
+  "/users/:user_id",
+  Middlewares.tokenValidationMiddleware,
+  Middlewares.verifyIdExistsMiddlewares,
+  Middlewares.verifyPermissionMiddlewares,
+  Users.default.users.deletedUsersController
+);
