@@ -32,6 +32,8 @@ usersRoutes.get(
   Users.default.users.retrieveUsersController
 );
 
+usersRoutes.get("/users/:user_id");
+
 usersRoutes.patch("/users/:user_id");
 
 usersRoutes.delete(
@@ -41,3 +43,5 @@ usersRoutes.delete(
   Middlewares.verifyPermissionMiddlewares,
   Users.default.users.deletedUsersController
 );
+
+usersRoutes.delete("/users/deactivated/:user_id");
