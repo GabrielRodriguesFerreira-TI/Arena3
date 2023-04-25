@@ -6,7 +6,6 @@ import {
   iRetrieveUserPagination,
 } from "../../interfaces/users.types";
 import * as Users from "../../services/users/index";
-import { retrieveUsersService } from "../../services/users/retrieveUsers.service";
 
 export const createUserController = async (
   req: Request,
@@ -54,7 +53,7 @@ export const retrieveUsersController = async (
     limit: req.query.limit,
   };
 
-  const users: iRetrieveUserPagination = await retrieveUsersService(
+  const users: iRetrieveUserPagination = await Users.retrieveUsersService(
     queryValues
   );
 
