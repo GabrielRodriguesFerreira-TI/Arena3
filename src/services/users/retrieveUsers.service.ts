@@ -18,6 +18,12 @@ export const retrieveUsersService = async (
     pageNumber = 1;
   }
 
+  const countDocuments = await User.countDocuments();
+
+  if (countDocuments < limitNumber) {
+    limitNumber = countDocuments;
+  }
+
   const options = {
     page: pageNumber,
     limit: limitNumber,
