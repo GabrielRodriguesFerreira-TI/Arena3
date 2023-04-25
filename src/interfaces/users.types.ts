@@ -9,6 +9,7 @@ export interface iCreateUser extends Document {
   lastName: string;
   imageProfile?: string;
   isAdmin: boolean;
+  deletedAt?: Date;
   UserWithoutPassword: () => Omit<this, "password">;
 }
 

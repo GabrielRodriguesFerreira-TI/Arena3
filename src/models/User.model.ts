@@ -28,10 +28,12 @@ const userSchema = new mongoose.Schema<iCreateUser>(
     lastName: { type: String, required: true, maxlength: 50, minlength: 4 },
     imageProfile: { type: String, required: false },
     isAdmin: { type: Boolean, required: false, default: false },
+    deletedAt: { type: Date },
   },
   { timestamps: true, autoCreate: false }
 );
 
+userSchema.index({ deletedAt: 1 });
 userSchema.plugin(mongoosePaginate);
 
 addPasswordHashingToSchema(userSchema);

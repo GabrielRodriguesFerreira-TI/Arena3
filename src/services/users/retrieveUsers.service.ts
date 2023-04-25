@@ -24,13 +24,20 @@ export const retrieveUsersService = async (
     limitNumber = countDocuments;
   }
 
+  const query = { deletedAt: { $exists: false } };
   const options = {
     page: pageNumber,
     limit: limitNumber,
     select: "-password -__v",
+    sort: { createdAt: -1 },
+    lean: true,
+    customLabels: {
+      totalDocs: "total",
+      docs: "users",
+    },
   };
 
-  const users = await User.paginate({}, options);
+  const users = await User.paginate(query, options);
 
   return users;
 };
