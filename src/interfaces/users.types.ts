@@ -55,3 +55,10 @@ export interface iQueryValues {
   page: ParamType;
   limit: ParamType;
 }
+
+export interface iUpdatedUser {
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+}

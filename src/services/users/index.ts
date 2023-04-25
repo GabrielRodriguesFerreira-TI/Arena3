@@ -4,6 +4,7 @@ import { uploadUserProfileImageService } from "./uploadUserProfileImage.service"
 import { retrieveUsersService } from "./retrieveUsers.service";
 import { deletedUserService } from "./deletedUsers.service";
 import { deactivatedUsersService } from "./deactivatedUsers.service";
+import { updateUsersService } from "./updatedUsers.service";
 
 export {
   createUserServices,
@@ -12,4 +13,5 @@ export {
   retrieveUsersService,
   deletedUserService,
   deactivatedUsersService,
+  updateUsersService,
 };

@@ -4,6 +4,7 @@ import {
   iCreateUserReturn,
   iQueryValues,
   iRetrieveUserPagination,
+  iUpdatedUser,
 } from "../../interfaces/users.types";
 import * as Users from "../../services/users/index";
 
@@ -58,6 +59,17 @@ export const retrieveUsersController = async (
   );
 
   return res.status(200).json(users);
+};
+
+export const updateUsersController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const userInfo: iUpdatedUser = req.body;
+
+  const updatedUser = await Users.updateUsersService(userInfo, req);
+
+  return res.status(200).json(updatedUser);
 };
 
 export const deletedUsersController = async (
