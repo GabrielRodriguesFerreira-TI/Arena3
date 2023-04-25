@@ -3,6 +3,7 @@ import {
   deleteUserProfileImageController,
   uploadUserProfileImageController,
   retrieveUsersController,
+  deletedUsersController,
 } from "./users.controllers";
 import {
   userLoginController,
@@ -16,6 +17,7 @@ export default {
     deleteUserProfileImageController,
     uploadUserProfileImageController,
     retrieveUsersController,
+    deletedUsersController,
   },
   usersLogin: {
     userLoginController,
