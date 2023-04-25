@@ -44,4 +44,10 @@ usersRoutes.delete(
   Users.default.users.deletedUsersController
 );
 
-usersRoutes.delete("/users/deactivated/:user_id");
+usersRoutes.delete(
+  "/users/deactivated/:user_id",
+  Middlewares.tokenValidationMiddleware,
+  Middlewares.verifyIdExistsMiddlewares,
+  Middlewares.verifyPermissionMiddlewares,
+  Users.default.users.deactivatedUsersController
+);

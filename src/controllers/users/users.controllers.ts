@@ -73,7 +73,7 @@ export const deactivatedUsersController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  await Users.deactivatedUsersService(req);
+  await Users.deactivatedUsersService(req, res);
 
   return res.status(204).send();
 };
