@@ -33,7 +33,12 @@ usersRoutes.get(
   Users.default.users.retrieveUsersController
 );
 
-usersRoutes.get("/users/:user_id");
+usersRoutes.get(
+  "/users/:user_id",
+  Middlewares.tokenValidationMiddleware,
+  Middlewares.verifyIdExistsMiddlewares,
+  Users.default.users.retrieveOneUserController
+);
 
 usersRoutes.patch(
   "/users/:user_id",
