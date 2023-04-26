@@ -15,5 +15,9 @@ export const verifyIdExistsMiddlewares = async (
     throw new AppError("User not found!", 404);
   }
 
+  if (user.deletedAt) {
+    throw new AppError("User deactivated!", 404);
+  }
+
   return next();
 };
