@@ -61,6 +61,15 @@ export const retrieveUsersController = async (
   return res.status(200).json(users);
 };
 
+export const retrieveOneUserController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const user: iCreateUserReturn = await Users.retrieveOneUserService(req);
+
+  return res.status(200).json(user);
+};
+
 export const updateUsersController = async (
   req: Request,
   res: Response

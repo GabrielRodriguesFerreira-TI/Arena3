@@ -5,6 +5,7 @@ import { retrieveUsersService } from "./retrieveUsers.service";
 import { deletedUserService } from "./deletedUsers.service";
 import { deactivatedUsersService } from "./deactivatedUsers.service";
 import { updateUsersService } from "./updatedUsers.service";
+import { retrieveOneUserService } from "./retrieveOneUser.service";
 
 export {
   createUserServices,
@@ -14,4 +15,5 @@ export {
   deletedUserService,
   deactivatedUsersService,
   updateUsersService,
+  retrieveOneUserService,
 };
