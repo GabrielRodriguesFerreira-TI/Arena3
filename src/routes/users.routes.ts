@@ -14,6 +14,7 @@ usersRoutes.patch(
   Middlewares.tokenValidationMiddleware,
   Middlewares.verifyIdExistsMiddlewares,
   Middlewares.verifyPermissionMiddlewares,
+  Middlewares.verifyImageProfileMiddlewares,
   upload.single("image"),
   Users.default.users.uploadUserProfileImageController
 );
