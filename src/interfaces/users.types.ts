@@ -7,7 +7,7 @@ export interface iCreateUser extends Document {
   email: string | Mixed;
   firstName: string;
   lastName: string;
-  imageProfile?: string;
+  imageProfile?: string | null;
   isAdmin: boolean;
   deletedAt?: Date;
   UserWithoutPassword: () => Omit<this, "password">;
@@ -19,7 +19,7 @@ export interface iCreateUserReturn {
   email: string | Mixed;
   firstName: string;
   lastName: string;
-  imageProfile?: string;
+  imageProfile?: string | null;
   isAdmin: boolean;
   createdAt?: string;
   updatedAt?: string;
