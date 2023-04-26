@@ -1,5 +1,5 @@
 import Joi from "@hapi/joi";
-import { iLoginUser } from "../interfaces/usersLogin.types";
+import { iLoginUser } from "../interfaces/users/usersLogin.types";
 
 export const userLoginSchema = Joi.object<iLoginUser>({
   email: Joi.string().email().required().lowercase().messages({

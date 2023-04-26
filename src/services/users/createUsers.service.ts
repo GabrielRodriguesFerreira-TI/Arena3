@@ -1,4 +1,7 @@
-import { iCreateUser, iCreateUserReturn } from "../../interfaces/users.types";
+import {
+  iCreateUser,
+  iCreateUserReturn,
+} from "../../interfaces/users/users.types";
 import { User } from "../../models/User.model";
 
 export const createUserServices = async (

@@ -5,7 +5,7 @@ import {
   iQueryValues,
   iRetrieveUserPagination,
   iUpdatedUser,
-} from "../../interfaces/users.types";
+} from "../../interfaces/users/users.types";
 import * as Users from "../../services/users/index";
 
 export const createUserController = async (

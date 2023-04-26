@@ -1,5 +1,8 @@
 import { Request } from "express";
-import { iCreateUserReturn, iUpdatedUser } from "../../interfaces/users.types";
+import {
+  iCreateUserReturn,
+  iUpdatedUser,
+} from "../../interfaces/users/users.types";
 import { User } from "../../models/User.model";
 import { updatedUserSchema } from "../../schema/User.schema";
 import { CustomValidationError } from "../../errors/erros";

@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { User } from "../../models/User.model";
-import { iCreateUserReturn } from "../../interfaces/users.types";
+import { iCreateUserReturn } from "../../interfaces/users/users.types";
 
 export const retrieveOneUserService = async (
   req: Request

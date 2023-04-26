@@ -1,5 +1,5 @@
 import Joi from "@hapi/joi";
-import { iUpdatedUser } from "../interfaces/users.types";
+import { iUpdatedUser } from "../interfaces/users/users.types";
 
 export const updatedUserSchema = Joi.object<iUpdatedUser>({
   username: Joi.string().optional().messages({

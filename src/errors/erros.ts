@@ -3,7 +3,7 @@ import { MongoServerError } from "mongodb";
 import mongoose from "mongoose";
 import { MulterError } from "multer";
 import { ValidationError, ValidationErrorItem } from "@hapi/joi";
-import { FormattedErrorMessage } from "../interfaces/errors.types";
+import { FormattedErrorMessage } from "../interfaces/global/errors.types";
 
 class AppError extends Error {
   message: string;
