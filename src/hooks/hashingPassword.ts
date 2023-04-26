@@ -1,5 +1,5 @@
 import { Schema } from "mongoose";
-import { iCreateUser } from "../interfaces/users.types";
+import { iCreateUser } from "../interfaces/users/users.types";
 import bcrypt from "bcryptjs";
 
 export function addPasswordHashingToSchema(schema: Schema<iCreateUser>): void {

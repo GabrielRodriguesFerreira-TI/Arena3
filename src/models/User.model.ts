@@ -1,9 +1,9 @@
 import validator from "validator";
 import mongoose from "mongoose";
-import { iCreateUser } from "../interfaces/users.types";
+import { iCreateUser } from "../interfaces/users/users.types";
 import { addPasswordHashingToSchema } from "../hooks/hashingPassword";
 import mongoosePaginate from "mongoose-paginate-v2";
-import { ICustomModel } from "../interfaces/paginate.types";
+import { ICustomModel } from "../interfaces/global/paginate.types";
 
 const userSchema = new mongoose.Schema<iCreateUser>(
   {

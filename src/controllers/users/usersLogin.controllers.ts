@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { iLoginUser } from "../../interfaces/usersLogin.types";
+import { iLoginUser } from "../../interfaces/users/usersLogin.types";
 import * as UsersLogin from "../../services/usersLogin/index";
 
 export const userLoginController = async (

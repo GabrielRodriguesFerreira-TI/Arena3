@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { compare } from "bcryptjs";
 import { AppError, CustomValidationError } from "../../errors/erros";
-import { iLoginUser } from "../../interfaces/usersLogin.types";
+import { iLoginUser } from "../../interfaces/users/usersLogin.types";
 import { User } from "../../models/User.model";
 import { sign } from "jsonwebtoken";
 import { Response } from "express";

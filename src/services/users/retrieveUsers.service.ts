@@ -1,7 +1,7 @@
 import {
   iQueryValues,
   iRetrieveUserPagination,
-} from "../../interfaces/users.types";
+} from "../../interfaces/users/users.types";
 import { User } from "../../models/User.model";
 
 export const retrieveUsersService = async (
