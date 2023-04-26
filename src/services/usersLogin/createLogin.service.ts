@@ -17,13 +17,19 @@ export const createLoginService = async (
     throw new CustomValidationError("Validation error", 422, error.details);
   }
 
-  const user = await User.findOne({ email: payload.email });
+  const user = await User.findOne({
+    email: payload.email,
+  });
 
   if (!user) {
     throw new AppError(
-      "Email not registered, please register a new email",
+      "Email not registered, please register a new email!",
       401
     );
+  }
+
+  if (user.deletedAt) {
+    throw new AppError("User deactivated!", 403);
   }
 
   const pwdMatch: boolean = await compare(payload.password, user.password);

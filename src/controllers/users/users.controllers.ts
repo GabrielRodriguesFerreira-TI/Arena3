@@ -79,7 +79,7 @@ export const deletedUsersController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  await Users.deletedUserService(req);
+  await Users.deletedUserService(req, res);
 
   return res.status(204).send();
 };
