@@ -57,7 +57,11 @@ const handleErros = (
     return res.status(400).json(error.errors);
   }
 
-  if (error instanceof MongoServerError || error instanceof TypeError) {
+  if (
+    error instanceof MongoServerError ||
+    error instanceof TypeError ||
+    error instanceof mongoose.Error.CastError
+  ) {
     return res.status(400).json({ message: error.message });
   }
 
@@ -71,7 +75,7 @@ const handleErros = (
   }
 
   return res.status(500).json({
-    message: "Internal server error",
+    message: error.name,
   });
 };
 
