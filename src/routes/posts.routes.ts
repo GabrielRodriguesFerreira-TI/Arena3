@@ -39,7 +39,8 @@ postsRoutes.delete(
   "/posts/upload/:filename/:user_id",
   Middlewares.tokenValidationMiddleware,
   Middlewares.verifyIdExistsMiddlewares,
-  Middlewares.verifyPermissionMiddlewares
+  Middlewares.verifyPermissionMiddlewares,
+  Posts.default.deletePostMidiaController
 );
 
 postsRoutes.get("/posts");
