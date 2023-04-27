@@ -9,7 +9,7 @@ type iAuthor = Omit<
 export interface iCreatPost extends Document {
   description: string;
   author: iAuthor;
-  media?: string;
+  media?: string | null;
   createdAt?: string;
   updatedAt?: string;
 }
