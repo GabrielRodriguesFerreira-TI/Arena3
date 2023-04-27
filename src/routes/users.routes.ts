@@ -1,6 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import multerConfig from "../config/upload.aws";
+import multerConfig from "../config/imageProfile.multer";
 import * as Middlewares from "../middlewares/index";
 import * as Users from "../controllers/users/index";
 

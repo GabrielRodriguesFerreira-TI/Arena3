@@ -22,7 +22,7 @@ export default {
   fileFilter: (
     request: Request,
     file: Express.Multer.File,
-    callback: Function
+    callback: (error: Error | null, acceptFile: boolean) => void
   ) => {
     const allowedMimeTypes = [
       "image/jpeg",
@@ -33,7 +33,7 @@ export default {
     if (allowedMimeTypes.includes(file.mimetype)) {
       callback(null, true);
     } else {
-      callback(new AppError("Only images are allowed!"));
+      callback(new AppError("Only images are allowed!"), false);
     }
   },
   limits: {
