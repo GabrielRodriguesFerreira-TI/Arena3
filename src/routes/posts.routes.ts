@@ -35,7 +35,12 @@ postsRoutes.patch(
   Posts.default.uploadVideoPostMidiaController
 );
 
-postsRoutes.delete("/posts/upload/:filename/:user_id");
+postsRoutes.delete(
+  "/posts/upload/:filename/:user_id",
+  Middlewares.tokenValidationMiddleware,
+  Middlewares.verifyIdExistsMiddlewares,
+  Middlewares.verifyPermissionMiddlewares
+);
 
 postsRoutes.get("/posts");
 
