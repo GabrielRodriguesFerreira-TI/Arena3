@@ -1,3 +1,7 @@
-import { uploadPostMidiaController } from "./posts.controllers";
+import { uploadImagePostMidiaController } from "./posts.controllers";
+import { uploadVideoPostMidiaController } from "./posts.controllers";
 
-export default { uploadPostMidiaController };
+export default {
+  uploadImagePostMidiaController,
+  uploadVideoPostMidiaController,
+};

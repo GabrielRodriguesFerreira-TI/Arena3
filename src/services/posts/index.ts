@@ -1,3 +1,4 @@
-import { uploadPostMidiaService } from "./uploadPostMidia.service";
+import { uploadImagePostMidiaService } from "./uploadPostMidia.service";
+import { uploadVideoPostMidiaService } from "./uploadVideoPostMidia.service";
 
-export { uploadPostMidiaService };
+export { uploadImagePostMidiaService, uploadVideoPostMidiaService };

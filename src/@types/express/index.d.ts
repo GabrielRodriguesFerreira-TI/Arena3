@@ -4,6 +4,7 @@ declare global {
       jwtEmailUser: string;
       jwtIdUser: string;
       jwtAdminUser: boolean;
+      midiaPath: string;
     }
   }
 }
