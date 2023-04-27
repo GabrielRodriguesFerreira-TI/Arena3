@@ -23,7 +23,7 @@ export default {
     fileFilter: (
       request: Request,
       file: Express.Multer.File,
-      callback: (error: Error | null, acceptFile: boolean) => void
+      callback: Function
     ) => {
       const allowedMimeTypes = ["video/mp4", "video/webm", "video/x-msvideo"];
       if (allowedMimeTypes.includes(file.mimetype)) {

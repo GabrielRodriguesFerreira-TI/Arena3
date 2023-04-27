@@ -22,7 +22,7 @@ export default {
   fileFilter: (
     request: Request,
     file: Express.Multer.File,
-    callback: (error: Error | null, acceptFile: boolean) => void
+    callback: Function
   ) => {
     const allowedMimeTypes = [
       "image/jpeg",
