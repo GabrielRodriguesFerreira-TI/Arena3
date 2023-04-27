@@ -21,3 +21,14 @@ export const uploadVideoPostMidiaController = async (
 
   return res.status(200).json(response);
 };
+
+export const deletePostMidiaController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const fileName = req.params.filename;
+
+  const response = await Posts.deletePostMidiaService(fileName);
+
+  return res.status(200).json(response);
+};
