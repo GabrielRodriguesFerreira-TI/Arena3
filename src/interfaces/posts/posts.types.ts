@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { iCreateUserReturn } from "../users/users.types";
 
 type iAuthor = Omit<
@@ -7,6 +7,14 @@ type iAuthor = Omit<
 >;
 
 export interface iCreatPost extends Document {
+  description: string;
+  author: mongoose.Schema.Types.ObjectId;
+  media?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface iCreatePostResult {
   description: string;
   author: iAuthor;
   media?: string | null;
