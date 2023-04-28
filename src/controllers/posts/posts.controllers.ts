@@ -1,5 +1,17 @@
 import { Request, Response } from "express";
 import * as Posts from "../../services/posts/index";
+import { iCreatPost } from "../../interfaces/posts/posts.types";
+
+export const createPostController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const PostInfo: iCreatPost = req.body;
+
+  const postCreated = await Posts.createPostService(PostInfo);
+
+  return res.status(201).json(postCreated);
+};
 
 export const uploadImagePostMidiaController = async (
   req: Request,

@@ -13,7 +13,13 @@ export const postsRoutes: Router = Router();
 const uploadImage = multer(imageProfileMulter);
 const uploadPostMidia = multer(postMidiaMulter.config);
 
-postsRoutes.post("/posts");
+postsRoutes.post(
+  "/posts/:user_id",
+  Middlewares.tokenValidationMiddleware,
+  Middlewares.verifyIdExistsMiddlewares,
+  Middlewares.verifyPermissionMiddlewares,
+  Posts.default.createPostController
+);
 
 postsRoutes.patch(
   "/posts/upload/image/:user_id",
