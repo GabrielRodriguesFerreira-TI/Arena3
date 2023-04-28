@@ -27,8 +27,9 @@ export const deletePostMidiaController = async (
   res: Response
 ): Promise<Response> => {
   const fileName: string = req.params.filename;
+  const userKey: string = req.ip;
 
-  const response = await Posts.deletePostMidiaService(fileName);
+  const response = await Posts.deletePostMidiaService(fileName, userKey);
 
   return res.status(200).json(response);
 };
