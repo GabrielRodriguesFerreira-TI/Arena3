@@ -9,7 +9,7 @@ type iAuthor = Omit<
 export interface iCreatPost extends Document {
   description: string;
   author: mongoose.Schema.Types.ObjectId;
-  media?: string | null;
+  midia?: string | null;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -17,7 +17,7 @@ export interface iCreatPost extends Document {
 export interface iCreatePostResult {
   description: string;
   author: iAuthor;
-  media?: string | null;
+  midia?: string | null;
   createdAt?: string;
   updatedAt?: string;
 }
