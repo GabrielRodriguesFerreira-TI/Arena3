@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import * as Posts from "../../services/posts/index";
-import { iCreatPost } from "../../interfaces/posts/posts.types";
+import {
+  iCreatPost,
+  iCreatePostResult,
+} from "../../interfaces/posts/posts.types";
 
 export const createPostController = async (
   req: Request,
@@ -8,7 +11,9 @@ export const createPostController = async (
 ): Promise<Response> => {
   const PostInfo: iCreatPost = req.body;
 
-  const postCreated = await Posts.createPostService(PostInfo);
+  const postCreated: iCreatePostResult = await Posts.createPostService(
+    PostInfo
+  );
 
   return res.status(201).json(postCreated);
 };

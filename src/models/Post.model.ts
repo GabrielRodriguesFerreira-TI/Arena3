@@ -3,18 +3,21 @@ import { iCreatPost } from "../interfaces/posts/posts.types";
 import mongoosePaginate from "mongoose-paginate-v2";
 import { ICustomModel } from "../interfaces/global/paginate.types";
 
-const postSchema = new mongoose.Schema<iCreatPost>({
-  description: { type: String, required: true, maxlength: 250 },
-  author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    options: {
-      onDelete: "CASCADE",
+const postSchema = new mongoose.Schema<iCreatPost>(
+  {
+    description: { type: String, required: true, maxlength: 250 },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Users",
+      options: {
+        onDelete: "CASCADE",
+      },
+      required: true,
     },
-    required: true,
+    midia: { type: String },
   },
-  media: { type: String },
-});
+  { timestamps: true, autoCreate: false }
+);
 
 postSchema.plugin(mongoosePaginate);
 
