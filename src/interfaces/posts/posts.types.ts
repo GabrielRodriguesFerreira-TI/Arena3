@@ -13,3 +13,10 @@ export interface iCreatPost extends Document {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface iStore {
+  incr: any;
+  decrement(key: string): void;
+  resetKey(key: string): void;
+  resetAll(): void;
+}
