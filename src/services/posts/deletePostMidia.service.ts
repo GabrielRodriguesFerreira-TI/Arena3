@@ -1,5 +1,4 @@
 import fs from "fs";
-import { videoUploadRateLimit } from "../../config/midiaRateLimit.config";
 import JsonFileStore from "../../config/jsonFileStore.config";
 
 export const deletePostMidiaService = async (
@@ -7,10 +6,9 @@ export const deletePostMidiaService = async (
   userKey: string
 ): Promise<{ message: string }> => {
   const videoPath = `tmp/${file}`;
-  const store = (videoUploadRateLimit as any).store as JsonFileStore;
-
-  await fs.promises.unlink(videoPath);
+  const store = new JsonFileStore("imageUploadRateLimit.json");
   await store.decrement(userKey);
+  await fs.promises.unlink(videoPath);
 
   return { message: "Midia successful deleted!" };
 };
