@@ -1,17 +1,12 @@
 import { Router } from "express";
 import * as Middlewares from "../middlewares/index";
 import * as Posts from "../controllers/posts/index";
-import multer from "multer";
-import imageProfileMulter from "../config/imageProfile.multer";
+import { midiaUploadRateLimit } from "../config/midiaRateLimit.config";
 import postMidiaMulter from "../config/postMidia.multer";
-import {
-  imageUploadRateLimit,
-  videoUploadRateLimit,
-} from "../config/midiaRateLimit.config";
+import multer from "multer";
 
 export const postsRoutes: Router = Router();
-const uploadImage = multer(imageProfileMulter);
-const uploadPostMidia = multer(postMidiaMulter.config);
+const upload = multer(postMidiaMulter.config);
 
 postsRoutes.post(
   "/posts/:user_id",
@@ -22,31 +17,13 @@ postsRoutes.post(
 );
 
 postsRoutes.patch(
-  "/posts/upload/image/:user_id",
+  "/posts/upload/:user_id",
   Middlewares.tokenValidationMiddleware,
   Middlewares.verifyIdExistsMiddlewares,
   Middlewares.verifyPermissionMiddlewares,
-  imageUploadRateLimit,
-  uploadImage.single("image"),
-  Posts.default.uploadImagePostMidiaController
-);
-
-postsRoutes.patch(
-  "/posts/upload/video/:user_id",
-  Middlewares.tokenValidationMiddleware,
-  Middlewares.verifyIdExistsMiddlewares,
-  Middlewares.verifyPermissionMiddlewares,
-  videoUploadRateLimit,
-  uploadPostMidia.single("video"),
-  Posts.default.uploadVideoPostMidiaController
-);
-
-postsRoutes.delete(
-  "/posts/upload/:filename/:user_id",
-  Middlewares.tokenValidationMiddleware,
-  Middlewares.verifyIdExistsMiddlewares,
-  Middlewares.verifyPermissionMiddlewares,
-  Posts.default.deletePostMidiaController
+  midiaUploadRateLimit,
+  upload.single("midia"),
+  Posts.default.uploadMidiaPostController
 );
 
 postsRoutes.get("/posts");

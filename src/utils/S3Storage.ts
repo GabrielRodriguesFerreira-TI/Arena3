@@ -1,10 +1,5 @@
 import "dotenv/config";
 import aws, { S3 } from "aws-sdk";
-import path from "path";
-import mime from "mime";
-import { AppError } from "../errors/erros";
-import fs from "fs";
-
 // Note that the AWS config is not being done directly in the code,
 // this is because the S3 system itself captures the values inside
 // the .env file
@@ -18,27 +13,14 @@ class S3Storage {
     });
   }
 
-  async saveFile(filename: string): Promise<void> {
-    const originalPath = path.resolve(filename);
-
-    const contentType = mime.getType(originalPath);
-
-    if (!contentType) {
-      throw new AppError("File not found!", 400);
-    }
-
-    const fileContent = await fs.promises.readFile(originalPath);
-
+  async saveFile(filename: string, buffer: Buffer): Promise<void> {
     this.client
       .putObject({
         Bucket: String(process.env.AWS_PROFILE_BUCKET_NAME),
         Key: filename,
-        Body: fileContent,
-        ContentType: contentType,
+        Body: buffer,
       })
       .promise();
-
-    await fs.promises.unlink(originalPath);
   }
 
   async deleteFile(filename: string): Promise<void> {
@@ -50,27 +32,14 @@ class S3Storage {
       .promise();
   }
 
-  async savePostFile(filename: string): Promise<void> {
-    const originalPath = path.resolve(filename);
-
-    const contentType = mime.getType(originalPath);
-
-    if (!contentType) {
-      throw new AppError("File not found!", 400);
-    }
-
-    const fileContent = await fs.promises.readFile(originalPath);
-
+  async savePostFile(filename: string, buffer: Buffer): Promise<void> {
     this.client
       .putObject({
         Bucket: String(process.env.AWS_POST_BUCKET_NAME),
         Key: filename,
-        Body: fileContent,
-        ContentType: contentType,
+        Body: buffer,
       })
       .promise();
-
-    await fs.promises.unlink(originalPath);
   }
 
   async deletePostFile(filename: string): Promise<void> {

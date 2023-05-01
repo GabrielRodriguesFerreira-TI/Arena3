@@ -1,13 +1,9 @@
 import {
-  uploadImagePostMidiaController,
   createPostController,
-  deletePostMidiaController,
-  uploadVideoPostMidiaController,
+  uploadMidiaPostController,
 } from "./posts.controllers";
 
 export default {
-  uploadImagePostMidiaController,
-  uploadVideoPostMidiaController,
-  deletePostMidiaController,
   createPostController,
+  uploadMidiaPostController,
 };

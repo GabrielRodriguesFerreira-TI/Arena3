@@ -15,7 +15,6 @@ export const verifyImageProfileMiddlewares = async (
     const s3Storage = new S3Storage();
 
     await s3Storage.deleteFile(user.imageProfile);
-    user.imageProfile = null;
   }
 
   return next();
