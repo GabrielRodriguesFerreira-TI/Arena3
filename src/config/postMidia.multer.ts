@@ -1,13 +1,6 @@
 import "dotenv/config";
 import { Request } from "express";
 import { AppError } from "../errors/erros";
-import { v2 as cloudinary } from "cloudinary";
-
-cloudinary.config({
-  cloud_name: String(process.env.CLOUDINARY_CLOUD_NAME),
-  api_key: String(process.env.CLOUDINARY_API_KEY),
-  api_secret: String(process.env.CLOUDINARY_API_SECRET),
-});
 
 export default {
   config: {
@@ -16,11 +9,19 @@ export default {
       file: Express.Multer.File,
       callback: Function
     ) => {
-      const allowedMimeTypes = ["video/mp4", "video/webm", "video/x-msvideo"];
+      const allowedMimeTypes = [
+        "video/mp4",
+        "video/webm",
+        "video/x-msvideo",
+        "image/jpeg",
+        "image/png",
+        "image/gif",
+        "image/jpg",
+      ];
       if (allowedMimeTypes.includes(file.mimetype)) {
         callback(null, true);
       } else {
-        callback(new AppError("Only videos are allowed!"), false);
+        callback(new AppError("Only videos and images are allowed!"), false);
       }
     },
     limits: {

@@ -1,11 +1,4 @@
-import { uploadImagePostMidiaService } from "./uploadPostMidia.service";
-import { uploadVideoPostMidiaService } from "./uploadVideoPostMidia.service";
-import { deletePostMidiaService } from "./deletePostMidia.service";
 import { createPostService } from "./createPost.service";
+import { uploadMidiaPostService } from "./uploadMidiaPost.service";
 
-export {
-  uploadImagePostMidiaService,
-  uploadVideoPostMidiaService,
-  deletePostMidiaService,
-  createPostService,
-};
+export { createPostService, uploadMidiaPostService };

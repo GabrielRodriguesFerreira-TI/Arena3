@@ -1,24 +1,8 @@
 import "dotenv/config";
-import crypto from "crypto";
 import { Request } from "express";
 import { AppError } from "../errors/erros";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
-const cloudinary = require("cloudinary").v2;
-
-cloudinary.config({
-  cloud_name: String(process.env.CLOUDINARY_CLOUD_NAME),
-  api_key: String(process.env.CLOUDINARY_API_KEY),
-  api_secret: String(process.env.CLOUDINARY_API_SECRET),
-});
 
 export default {
-  storage: new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-      public_id: (req, file) =>
-        `${crypto.randomBytes(10).toString("hex")}-${file.originalname}`,
-    },
-  }),
   fileFilter: (
     request: Request,
     file: Express.Multer.File,
