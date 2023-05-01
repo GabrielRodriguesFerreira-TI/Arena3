@@ -1,28 +1,35 @@
-import { AppError } from "../../errors/erros";
-import fs from "fs";
-const ffprobe = require("ffprobe");
-const ffprobeStatic = require("ffprobe-static");
+import { iUploadVideo } from "../../interfaces/global/cloudinary.types";
+import { uploadToCloudinary } from "../../logic/uploadStream.logic";
 
 export const uploadVideoPostMidiaService = async (
-  file: Express.Multer.File,
-  path: string
-): Promise<{ message: string }> => {
-  const videoPath = `tmp/${path}`;
-  let resultDuration: any;
+  file: Express.Multer.File
+): Promise<any> => {
+  const result = (await uploadToCloudinary(file)) as iUploadVideo;
 
-  await ffprobe(videoPath, { path: ffprobeStatic.path })
-    .then((info: { streams: { duration: any }[] }) => {
-      resultDuration = info.streams[0].duration;
-    })
-    .catch((err: unknown) => {
-      console.error(err);
-    });
+  const {
+    api_key,
+    asset_id,
+    audio,
+    bit_rate,
+    bytes,
+    etag,
+    folder,
+    format,
+    frame_rate,
+    height,
+    is_audio,
+    nb_frames,
+    original_filename,
+    pages,
+    placeholder,
+    rotation,
+    signature,
+    tags,
+    types,
+    width,
+    video,
+    ...response
+  } = result;
 
-  if (resultDuration! > 31) {
-    await fs.promises.unlink(videoPath);
-
-    throw new AppError("The video can be a maximum of 30 seconds", 422);
-  }
-
-  return { message: "Video successful upload!" };
+  return response;
 };

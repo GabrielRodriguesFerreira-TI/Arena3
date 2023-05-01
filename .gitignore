@@ -4,3 +4,4 @@ yarn.lock
 yarn-error.log
 docker-compose.yml
 imageUploadRateLimit.json
+videoUploadRateLimit.json
