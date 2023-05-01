@@ -15,6 +15,12 @@ const postSchema = new mongoose.Schema<iCreatPost>(
       required: true,
     },
     midia: { type: String },
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
   },
   { timestamps: true, autoCreate: false }
 );
