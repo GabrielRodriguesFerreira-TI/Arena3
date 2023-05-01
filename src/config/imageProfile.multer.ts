@@ -1,24 +1,22 @@
 import "dotenv/config";
-import multer from "multer";
-import path from "path";
 import crypto from "crypto";
 import { Request } from "express";
 import { AppError } from "../errors/erros";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+const cloudinary = require("cloudinary").v2;
 
-const tmpFolder = path.resolve(__dirname, "..", "..", "tmp");
+cloudinary.config({
+  cloud_name: String(process.env.CLOUDINARY_CLOUD_NAME),
+  api_key: String(process.env.CLOUDINARY_API_KEY),
+  api_secret: String(process.env.CLOUDINARY_API_SECRET),
+});
 
 export default {
-  directory: tmpFolder,
-  storage: multer.diskStorage({
-    destination: tmpFolder,
-    filename(request: Request, file, callback) {
-      const fileHash = crypto.randomBytes(10).toString("hex");
-
-      const fileName = `${fileHash}-${file.originalname}`;
-
-      request.midiaPath = fileName;
-
-      return callback(null, fileName);
+  storage: new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+      public_id: (req, file) =>
+        `${crypto.randomBytes(10).toString("hex")}-${file.originalname}`,
     },
   }),
   fileFilter: (

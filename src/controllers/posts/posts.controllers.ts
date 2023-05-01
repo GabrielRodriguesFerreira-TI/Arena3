@@ -22,7 +22,9 @@ export const uploadImagePostMidiaController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const response = await Posts.uploadImagePostMidiaService();
+  const public_id: string = req.file!.filename;
+
+  const response = await Posts.uploadImagePostMidiaService(public_id);
 
   return res.status(200).json(response);
 };
@@ -32,9 +34,8 @@ export const uploadVideoPostMidiaController = async (
   res: Response
 ): Promise<Response> => {
   const file = req.file!;
-  const path = req.midiaPath;
 
-  const response = await Posts.uploadVideoPostMidiaService(file, path);
+  const response = await Posts.uploadVideoPostMidiaService(file);
 
   return res.status(200).json(response);
 };

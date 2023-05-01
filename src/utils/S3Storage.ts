@@ -1,8 +1,6 @@
 import "dotenv/config";
 import aws, { S3 } from "aws-sdk";
 import path from "path";
-import multerImageProfileConfig from "../config/imageProfile.multer";
-import multerPostMidia from "../config/postMidia.multer";
 import mime from "mime";
 import { AppError } from "../errors/erros";
 import fs from "fs";
@@ -21,10 +19,7 @@ class S3Storage {
   }
 
   async saveFile(filename: string): Promise<void> {
-    const originalPath = path.resolve(
-      multerImageProfileConfig.directory,
-      filename
-    );
+    const originalPath = path.resolve(filename);
 
     const contentType = mime.getType(originalPath);
 
@@ -56,10 +51,7 @@ class S3Storage {
   }
 
   async savePostFile(filename: string): Promise<void> {
-    const originalPath = path.resolve(
-      multerPostMidia.config.directory,
-      filename
-    );
+    const originalPath = path.resolve(filename);
 
     const contentType = mime.getType(originalPath);
 
