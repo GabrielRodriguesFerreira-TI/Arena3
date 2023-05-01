@@ -26,6 +26,12 @@ postsRoutes.patch(
   Posts.default.uploadMidiaPostController
 );
 
+postsRoutes.post(
+  "/posts/comment/:user_id/:post_id",
+  Middlewares.tokenValidationMiddleware,
+  Middlewares.verifyIdExistsMiddlewares
+);
+
 postsRoutes.get("/posts");
 
 postsRoutes.get("/posts/:post_id");
