@@ -4,7 +4,7 @@ import { AppError } from "../errors/erros";
 import JsonFileStore from "./jsonFileStore.config";
 
 export const midiaUploadRateLimit = expressRateLimit({
-  store: new JsonFileStore("videoUploadRateLimit.json"),
+  store: new JsonFileStore("midiaUploadRateLimit.json"),
   windowMs: 30 * 60 * 1000, // 30 minutos
   max: 3,
   handler: function (req: Request, res: Response) {
