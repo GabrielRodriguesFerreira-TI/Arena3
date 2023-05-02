@@ -17,7 +17,7 @@ const postSchema = new mongoose.Schema<iCreatPost>(
     midia: { type: String },
     comments: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: [mongoose.Schema.Types.ObjectId],
         ref: "Comment",
       },
     ],

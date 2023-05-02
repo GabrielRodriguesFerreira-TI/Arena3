@@ -10,7 +10,7 @@ export interface iCreatPost extends Document {
   description: string;
   author: mongoose.Schema.Types.ObjectId;
   midia?: string | null;
-  comments?: mongoose.Schema.Types.ObjectId;
+  comments?: [mongoose.Schema.Types.ObjectId];
   createdAt?: string;
   updatedAt?: string;
 }
@@ -19,7 +19,7 @@ export interface iCreatePostResult {
   description: string;
   author: iAuthor;
   midia?: string | null;
-  comments?: mongoose.Schema.Types.ObjectId;
+  comments?: [mongoose.Schema.Types.ObjectId];
   createdAt?: string;
   updatedAt?: string;
 }

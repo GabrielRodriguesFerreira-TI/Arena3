@@ -29,7 +29,8 @@ postsRoutes.patch(
 postsRoutes.post(
   "/posts/comment/:user_id/:post_id",
   Middlewares.tokenValidationMiddleware,
-  Middlewares.verifyIdExistsMiddlewares
+  Middlewares.verifyIdExistsMiddlewares,
+  Posts.default.createCommentPostController
 );
 
 postsRoutes.get("/posts");
