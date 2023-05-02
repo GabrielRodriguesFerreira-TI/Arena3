@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import app from "./app";
 const getDataBaseConfg = require("./data-source");
 
-async function main() {
+export async function connect() {
   const databaseConfig = await getDataBaseConfg();
   const env = process.env.NODE_ENV || "dev";
   const uri = databaseConfig[env].uri;
@@ -22,4 +22,4 @@ async function main() {
   });
 }
 
-main();
+connect();

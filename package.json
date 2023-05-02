@@ -5,7 +5,8 @@
   "repository": "git@github.com:GabrielRodriguesFerreira-TI/CRUD-MongoDB-docker.git",
   "author": "GabrielRf <ti.gabrielrf@gmail.com>",
   "scripts": {
-    "dev": "ts-node-dev --ignore-watch node_modules --cls --rs src/server.ts"
+    "dev": "ts-node-dev --ignore-watch node_modules --cls --rs src/server.ts",
+    "test": "jest --verbose --runInBand"
   },
   "license": "ISC",
   "dependencies": {
