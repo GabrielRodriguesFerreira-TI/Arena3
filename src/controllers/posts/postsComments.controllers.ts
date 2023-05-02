@@ -7,8 +7,14 @@ export const createCommentPostController = async (
   res: Response
 ): Promise<Response> => {
   const commentInfo: iCreateComments = req.body;
+  const postId = req.params.post_id;
+  const userId = req.params.user_id;
 
-  const response = await Posts.createCommentPostService(commentInfo);
+  const response = await Posts.createCommentPostService(
+    commentInfo,
+    postId,
+    userId
+  );
 
   return res.status(201).json(response);
 };

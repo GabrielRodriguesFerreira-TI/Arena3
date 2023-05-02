@@ -31,7 +31,7 @@ const commentsSchema = new mongoose.Schema<iCreateComments>({
   },
   childComments: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: [mongoose.Schema.Types.ObjectId],
       ref: "Comment",
       options: {
         onDelete: "CASCADE",
