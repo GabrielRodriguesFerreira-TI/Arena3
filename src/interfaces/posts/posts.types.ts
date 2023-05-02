@@ -1,5 +1,5 @@
 import mongoose, { Document } from "mongoose";
-import { iCreateUserReturn } from "../users/users.types";
+import { ParamType, iCreateUserReturn } from "../users/users.types";
 
 export type iAuthor = Omit<
   iCreateUserReturn,
@@ -29,4 +29,11 @@ export interface iStore {
   decrement(key: string): void;
   resetKey(key: string): void;
   resetAll(): void;
+}
+
+export interface iQueryParamsPost {
+  postPage: ParamType;
+  postLimit: ParamType;
+  commentPage: ParamType;
+  commentLimit: ParamType;
 }

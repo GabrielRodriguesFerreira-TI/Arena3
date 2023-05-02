@@ -33,7 +33,11 @@ postsRoutes.post(
   Posts.default.createCommentPostController
 );
 
-postsRoutes.get("/posts");
+postsRoutes.get(
+  "/posts",
+  Middlewares.tokenValidationMiddleware,
+  Posts.default.retrievePostController
+);
 
 postsRoutes.get("/posts/:post_id");
 
