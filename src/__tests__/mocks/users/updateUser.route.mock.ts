@@ -9,14 +9,12 @@ export const userUpdateMock = {
   userCompleteUpdateFull: {
     username: "A3on2",
     password: "1234567",
-    email: "gabrielrf2@gmail.com",
     firstName: "Gabriel2",
     lastName: "Rodrigues2",
   },
   userCompleteUpdatePartial: {
-    username: "A3on2",
+    username: "A3on",
     password: "123456",
-    email: "gabrielrf@gmail.com",
     firstName: "Gabriel2",
     lastName: "Rodrigues2",
   },
