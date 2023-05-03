@@ -137,4 +137,13 @@ export const messageErrorMock = {
       path: "username",
     },
   },
+  invalidTypesJoi: {
+    message: {
+      username: '"username" must be a string',
+      password: '"password" must be a string',
+      firstName: '"firstName" must be a string',
+      lastName: '"lastName" must be a string',
+      email: '"email" is not allowed',
+    },
+  },
 };
