@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors/erros";
 import { JwtPayload, VerifyErrors, verify } from "jsonwebtoken";
+import { ParamType } from "../interfaces/users/users.types";
 
 export const tokenValidationMiddleware = async (
   req: Request,
@@ -9,12 +10,13 @@ export const tokenValidationMiddleware = async (
 ): Promise<void> => {
   const reqToken: string | undefined = req.headers.authorization;
   const accessToken: string | undefined = req.cookies.accessToken;
+  const paramsToken: ParamType = req.query.accessToken;
 
   if (!reqToken) {
     throw new AppError("Missing bearer token", 401);
   }
 
-  if (!accessToken) {
+  if (!accessToken && !paramsToken) {
     throw new AppError("Expired Token!", 401);
   }
 
