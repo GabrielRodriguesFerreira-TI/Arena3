@@ -1,6 +1,5 @@
 import supertest from "supertest";
 import app from "../../../app";
-import { messageErrorMock } from "../../mocks/users/messageError.mock";
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { User } from "../../../models/User.model";
@@ -99,6 +98,95 @@ describe("POST /login", () => {
       bodyEqual: {
         message: "Successfully logged out!",
       },
+    };
+
+    expect(response.status).toBe(expectResults.status);
+    expect(response.body).toStrictEqual(expectResults.bodyEqual);
+  });
+
+  it("Error: Must not be able to login - Invalid credential 1 - Wrong password", async () => {
+    const user = new User({
+      ...userLoginMock.userActivate,
+    });
+    await user.save();
+
+    const response = await request.post(baseUrl).send({
+      email: userLoginMock.userInvalidCredential1.email,
+      password: userLoginMock.userInvalidCredential1.password,
+    });
+
+    const expectResults = {
+      status: 401,
+      bodyEqual: { message: "Incorrect password" },
+    };
+
+    expect(response.status).toBe(expectResults.status);
+    expect(response.body).toStrictEqual(expectResults.bodyEqual);
+  });
+
+  it("Error: Must not be able to login - Invalid credential 2 - Wrong email", async () => {
+    const user = new User({
+      ...userLoginMock.userActivate,
+    });
+    await user.save();
+
+    const response = await request.post(baseUrl).send({
+      email: userLoginMock.userInvalidCredential2.email,
+      password: userLoginMock.userInvalidCredential2.password,
+    });
+
+    const expectResults = {
+      status: 401,
+      bodyEqual: {
+        message: "Email not registered, please register a new email!",
+      },
+    };
+
+    expect(response.status).toBe(expectResults.status);
+    expect(response.body).toStrictEqual(expectResults.bodyEqual);
+  });
+
+  it("Error: Must not be able to login - Invalid credential 3 - User deactivated", async () => {
+    const user = new User({
+      ...userLoginMock.userToInactive,
+    });
+    user.deletedAt = new Date();
+    await user.save();
+
+    const response = await request.post(baseUrl).send({
+      email: userLoginMock.userToInactive.email,
+      password: userLoginMock.userToInactive.password,
+    });
+
+    const expectResults = {
+      status: 403,
+      bodyEqual: { message: "User deactivated!" },
+    };
+
+    expect(response.status).toBe(expectResults.status);
+    expect(response.body).toStrictEqual(expectResults.bodyEqual);
+  });
+
+  it("Error: Must not be able to refresh token - Invalid token", async () => {
+    const user = new User({
+      ...userLoginMock.userActivate,
+    });
+    await user.save();
+
+    const login = await request.post(baseUrl).send({
+      email: userLoginMock.userActivate.email,
+      password: userLoginMock.userActivate.password,
+    });
+
+    const invalidToken = login.body.refreshToken.slice(0, -1) + "X";
+
+    const response = await request
+      .post(baseUrlRefresh)
+      .query({ refreshToken: invalidToken });
+
+    const expectResults = {
+      status: 401,
+      bodyEqual: { message: "invalid signature" },
     };
 
     expect(response.status).toBe(expectResults.status);
