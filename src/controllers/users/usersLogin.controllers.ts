@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { iLoginUser } from "../../interfaces/users/usersLogin.types";
 import * as UsersLogin from "../../services/usersLogin/index";
+import { ParamType } from "../../interfaces/users/users.types";
 
 export const userLoginController = async (
   req: Request,
@@ -17,7 +18,7 @@ export const userRefreshTokenController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const refreshToken: string = req.cookies.refreshToken;
+  const refreshToken: ParamType = req.query.refreshToken;
 
   const response = await UsersLogin.userRefreshTokenService(
     refreshToken,
