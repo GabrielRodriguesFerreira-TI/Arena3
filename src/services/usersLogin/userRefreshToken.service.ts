@@ -2,9 +2,10 @@ import "dotenv/config";
 import { JwtPayload, sign, verify } from "jsonwebtoken";
 import { AppError } from "../../errors/erros";
 import { Request, Response } from "express";
+import { ParamType } from "../../interfaces/users/users.types";
 
 export const userRefreshTokenService = async (
-  refreshToken: string,
+  refreshToken: ParamType,
   res: Response,
   req: Request
 ): Promise<{ message: string }> => {
@@ -13,7 +14,7 @@ export const userRefreshTokenService = async (
   }
 
   verify(
-    refreshToken,
+    String(refreshToken),
     String(process.env.REFRESH_TOKEN_SECRET),
     (err, decoded) => {
       if (err) {
