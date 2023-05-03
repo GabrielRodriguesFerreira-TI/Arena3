@@ -9,7 +9,7 @@ import { userLoginMock } from "../../mocks/users/loginUser.route.mock";
 describe("POST /login", () => {
   const baseUrl: string = "/login";
   const baseUrlRefresh: string = baseUrl + "/token";
-  const baseUrlLogout: string = "/users/logout";
+  const baseUrlLogout: string = "/logout";
 
   let request: supertest.SuperTest<supertest.Test>;
   let server: MongoMemoryServer;
@@ -72,6 +72,32 @@ describe("POST /login", () => {
       status: 200,
       bodyEqual: {
         message: "Access token successfully renewed!",
+      },
+    };
+
+    expect(response.status).toBe(expectResults.status);
+    expect(response.body).toStrictEqual(expectResults.bodyEqual);
+  });
+
+  it("Success: Must be able to logout user", async () => {
+    const user = new User({
+      ...userLoginMock.userActivate,
+    });
+    await user.save();
+
+    const login = await request.post(baseUrl).send({
+      email: userLoginMock.userActivate.email,
+      password: userLoginMock.userActivate.password,
+    });
+
+    const response = await request
+      .post(`${baseUrlLogout}?accessToken=${login.body.accessToken}`)
+      .set("Authorization", `Bearer ${login.body.accessToken}`);
+
+    const expectResults = {
+      status: 200,
+      bodyEqual: {
+        message: "Successfully logged out!",
       },
     };
 
