@@ -62,6 +62,9 @@ const handleErros = (
     error instanceof TypeError ||
     error instanceof mongoose.Error.CastError
   ) {
+    if (error.name === "CastError") {
+      return res.status(404).json({ message: error.message });
+    }
     return res.status(409).json({ message: error.message });
   }
 

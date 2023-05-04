@@ -25,15 +25,8 @@ export const userUpdateMock = {
     firstName: {},
     lastName: [],
   },
-  userUniqueEmail: {
-    username: "Maltohumor",
-    password: "123456",
-    email: "antonio@gmail.com",
-    firstName: "Antonio",
-    lastName: "Santos",
-  },
   userUniqueUsername: {
-    username: "Maltohumor",
+    username: "A3on2",
     password: "123456",
     email: "antonio1@gmail.com",
     firstName: "Antonio",
