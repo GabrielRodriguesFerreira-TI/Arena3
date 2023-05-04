@@ -44,6 +44,20 @@ export interface iRetrieveUserPagination {
   meta?: any;
 }
 
+export interface iRetrieveUserPaginationTest {
+  users: iCreateUser[];
+  total: number;
+  limit: number;
+  page?: number;
+  totalPages?: number;
+  nextPage?: number | null;
+  prevPage?: number | null;
+  pagingCounter?: number;
+  hasPrevPage?: boolean;
+  hasNextPage?: boolean;
+  meta?: any;
+}
+
 export type ParamType =
   | string
   | QueryString.ParsedQs
