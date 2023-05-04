@@ -41,7 +41,7 @@ describe("PATCH /users", () => {
     userExtra = new User({
       ...userUpdateMock.userIsNotOwner,
     });
-    await userComplete.save();
+    await userExtra.save();
 
     updatedUserExtraUrl = baseUrl + `/${userExtra._id}`;
   });
@@ -184,6 +184,74 @@ describe("PATCH /users", () => {
     expect(response.body).toStrictEqual(expectResults.bodyMessage);
   });
 
+  it("Error: Must not be able to update - Invalid credential - User not owner", async () => {
+    const response = await request
+      .patch(updatedUserExtraUrl)
+      .set(
+        "Authorization",
+        `Bearer ${generateToken.isValidtoken(
+          userComplete.isAdmin,
+          userComplete.email,
+          userComplete._id
+        )}`
+      )
+      .query({
+        accessToken: generateToken.isValidtoken(
+          userComplete.isAdmin,
+          userComplete.email,
+          userComplete._id
+        ),
+      })
+      .send(userUpdateMock.userCompleteUpdatePartial);
+
+    const expectResults = {
+      status: 403,
+      bodyEqual: {
+        message: "Insufficient permission",
+      },
+    };
+
+    expect(response.status).toBe(expectResults.status);
+    expect(response.body).toStrictEqual(expectResults.bodyEqual);
+  });
+
+  it("Error: Must not be able to update - Username already exists", async () => {
+    const user = new User({
+      ...userUpdateMock.userUniqueUsername,
+    });
+    await user.save();
+
+    const response = await request
+      .patch(updatedUserCompleteUrl)
+      .set(
+        "Authorization",
+        `Bearer ${generateToken.isValidtoken(
+          userComplete.isAdmin,
+          userComplete.email,
+          userComplete._id
+        )}`
+      )
+      .query({
+        accessToken: generateToken.isValidtoken(
+          userComplete.isAdmin,
+          userComplete.email,
+          userComplete._id
+        ),
+      })
+      .send(userUpdateMock.userCompleteUpdateFull);
+
+    const expectResults = {
+      status: 409,
+      bodyEqual: {
+        message:
+          'Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.users index: username_1 dup key: { username: "A3on2" }',
+      },
+    };
+
+    expect(response.status).toBe(expectResults.status);
+    expect(response.body).toStrictEqual(expectResults.bodyEqual);
+  });
+
   it("Error: Must not be able to update - Invalid ID Number", async () => {
     const response = await request
       .patch(updateInvalidIDUrlNumber)
@@ -235,13 +303,75 @@ describe("PATCH /users", () => {
       })
       .send(userUpdateMock.userComplete);
 
-    console.log(response.body);
-
     const expectResults = {
       status: 404,
       bodyEqual: {
         message:
           'Cast to ObjectId failed for value "aaaaaa" (type string) at path "_id" for model "Users"',
+      },
+    };
+
+    expect(response.status).toBe(expectResults.status);
+    expect(response.body).toStrictEqual(expectResults.bodyEqual);
+  });
+
+  it("Error: Must not be able to update - Missing bearer", async () => {
+    const response = await request
+      .patch(updatedUserCompleteUrl)
+      .send(userUpdateMock.userComplete);
+
+    const expectResults = {
+      status: 401,
+      bodyEqual: {
+        message: "Missing bearer token",
+      },
+    };
+
+    expect(response.status).toBe(expectResults.status);
+    expect(response.body).toStrictEqual(expectResults.bodyEqual);
+  });
+
+  it("Error: Must not be able to update - Invalid signature", async () => {
+    const response = await request
+      .patch(updatedUserCompleteUrl)
+      .set("Authorization", `Bearer ${generateToken.invalidSignature}`)
+      .query({
+        accessToken: generateToken.isValidtoken(
+          userComplete.isAdmin,
+          userComplete.email,
+          userComplete._id
+        ),
+      })
+      .send(userUpdateMock.userComplete);
+
+    const expectResults = {
+      status: 401,
+      bodyEqual: {
+        message: "invalid signature",
+      },
+    };
+
+    expect(response.status).toBe(expectResults.status);
+    expect(response.body).toStrictEqual(expectResults.bodyEqual);
+  });
+
+  it("Error: Must not be able to update - JWT malformed", async () => {
+    const response = await request
+      .patch(updatedUserCompleteUrl)
+      .set("Authorization", `Bearer ${generateToken.jwtMalFormed}`)
+      .query({
+        accessToken: generateToken.isValidtoken(
+          userComplete.isAdmin,
+          userComplete.email,
+          userComplete._id
+        ),
+      })
+      .send(userUpdateMock.userComplete);
+
+    const expectResults = {
+      status: 401,
+      bodyEqual: {
+        message: "jwt malformed",
       },
     };
 
