@@ -33,3 +33,7 @@ Visão geral do projeto, um pouco das tecnologias usadas.
 - [NodeJS](https://nodejs.org/en/)
 - [Express](https://expressjs.com/pt-br/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [MongoDB](https://www.mongodb.com/)
+- [Mongoose](https://mongoosejs.com/)
+- [Docker](https://www.docker.com/)
+- [AWS](https://aws.amazon.com/pt/free/?trk=0c09a3fd-f26f-4a26-8dcf-12a3016d392d&sc_channel=ps&s_kwcid=AL!4422!10!71605922711135!71606443844155&ef_id=f08436ac256818d76e2f52f873052207:G:s&all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all)
