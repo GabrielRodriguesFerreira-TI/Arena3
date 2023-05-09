@@ -1,8 +1,7 @@
 import "dotenv/config";
 import { S3 } from "@aws-sdk/client-s3";
 // Note that the AWS config is not being done directly in the code,
-// this is because the S3 system itself captures the values inside
-// the .env file
+// this is because the S3 system itself captures the values inside the .env file
 
 class S3Storage {
   private client: S3;
