@@ -1,6 +1,5 @@
 dist/
 .env
-yarn.lock
 yarn-error.log
-midiaUploadRateLimit.json
+midiaUploadRate.json
 arena-3-386200-d30b459bfb7c.json
