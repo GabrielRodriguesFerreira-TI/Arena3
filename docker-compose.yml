@@ -1,10 +1,7 @@
 version: "3"
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: arena3-image
+    image: gabrielrf777/arena3-api:1.0
     ports:
       - 3000:3000
     restart: always
