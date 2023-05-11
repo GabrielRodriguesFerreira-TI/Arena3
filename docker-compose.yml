@@ -9,6 +9,8 @@ services:
       - .env
     volumes:
       - ./data:/app/data
+    networks:
+      - networkName
 
 volumes:
   data:
